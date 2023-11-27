@@ -67,35 +67,6 @@ class FormData:
     )
 
 
-class VerifyHostnames(Job):
-    """Demo job that verifies device hostnames match corporate standards."""
-
-    class Meta:
-        """Meta class for VerifyHostnames"""
-
-        name = "Verify Hostnames"
-        description = "Verify device hostnames match corporate standards"
-
-    site = FormData.site
-    device_role = FormData.device_role
-    device_type = FormData.device_type
-    hostname_regex = StringVar(
-        description = "Regular expression to check the hostname against",
-        default = ".*",
-        required = True
-    )
-
-    def run(self, data=None, commit=None):
-        """Executes the job"""
-
-        regex = data["hostname_regex"]
-        self.log(f"Using the regular expression: {regex}") 
-        for device in filter_devices(data, self.log_debug):
-            if re.search(regex, device.name):
-                self.log_success(obj=device, message="Hostname is compliant.")
-            else:
-                self.log_failure(obj=device, message="Hostname is not compliant.")
-
 
 class VerifyPlatform(Job):
     """Demo job that verifies that platform is defined for devices"""
