@@ -84,6 +84,7 @@ class VerifyPlatform(Job):
     def run(self, data=None, commit=None):
         """Executes the job"""
         self.log_info(obj=None, message="Test")
+        self.log_info(obj=None, message="Test 2")
         for device in filter_devices(data, self.log_debug):
             if device.platform:
                 self.log_success(obj=device, message="Platform is defined.")
